@@ -39,7 +39,7 @@ export const Header = () => {
     userId,
     metadata,
   } = appContext;
-  
+
   const { textColor, backgroundColor, enableBotAvatarBorder } = chatHeaderCss;
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useDetectClickOutside({
@@ -86,7 +86,7 @@ export const Header = () => {
           <div className="text-xl font-semibold antialiased">{botTitle}</div>
           <p className="">{botSubTitle}</p>
         </div>
-        <motion.div
+        {/* <motion.div
           whileHover={{ scale: 1.2 }}
           className="flex"
           onClick={() => {
@@ -94,9 +94,9 @@ export const Header = () => {
           }}
         >
           <Bars3BottomRightIcon className=" h-7 w-7" />
-        </motion.div>
+        </motion.div> */}
       </div>
-      {showDropdown && (
+      {/* {showDropdown && (
         <div
           id="dropdown"
           className=" absolute right-5 top-16 z-50 w-fit cursor-default  divide-y divide-gray-100 rounded-xl bg-white shadow-lg"
@@ -138,7 +138,7 @@ export const Header = () => {
             })}
           </ul>
         </div>
-      )}
+      )} */}
     </>
   );
 };

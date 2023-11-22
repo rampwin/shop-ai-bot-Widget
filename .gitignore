@@ -10,6 +10,7 @@
 
 # production
 /build
+dist/index.js
 
 /src/scss
 /src/assets

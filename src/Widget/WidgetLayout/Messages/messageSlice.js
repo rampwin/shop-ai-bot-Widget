@@ -82,13 +82,16 @@ export const messagesSlice = createSlice({
       state.userTyping = true;
       state.userTypingPlaceholder = "Type your message here...";
       const messages = action.payload;
-      if (messages.length > 0) {
-        for (let index = 0; index < messages.length; index += 1) {
-          const message = messages[index];
+      let messageArr = [];
+      messageArr.push(messages);
+      if (messageArr.length > 0) {
+        for (let index = 0; index < messageArr.length; index += 1) {
+          const message = messageArr[index];
+          console.log(message);
           // messageType: text
-          if (message?.text) {
+          if (message?.message) {
             state.messages.push({
-              text: message.text,
+              text: message.message,
               sender: "BOT",
               type: "text",
               ts: new Date(),
