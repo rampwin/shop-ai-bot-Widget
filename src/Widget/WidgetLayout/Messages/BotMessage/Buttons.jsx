@@ -34,7 +34,7 @@ export const Button = styled.button`
 export const Buttons = ({ buttons, index, showBotAvatar, ts, callback }) => {
   const dispatch = useDispatch();
   const appContext = useContext(AppContext);
-  const { buttonsCss, botAvatar, rasaServerUrl, userId } = appContext;
+  const { buttonsCss, botAvatar, shopGptServerUrl, userId } = appContext;
   return (
     <div className="flex space-x-1 ">
       <div className={`flex w-5 items-start`}>
@@ -71,7 +71,7 @@ export const Buttons = ({ buttons, index, showBotAvatar, ts, callback }) => {
                   dispatch(toggleUserTyping(false));
                   dispatch(
                     fetchBotResponse({
-                      rasaServerUrl,
+                      shopGptServerUrl,
                       message: payload,
                       sender: userId,
                     })

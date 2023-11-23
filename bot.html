@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><title>Demo Page</title><script defer="defer" src="https://aibots-rampwin-demos.s3.ap-south-1.amazonaws.com/index.js"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript></body><script>!(function () {
+    let e = document.createElement("script"),
+      t = document.head || document.getElementsByTagName("head")[0];
+    (e.src = "https://aibots-rampwin-demos.s3.ap-south-1.amazonaws.com/index.js"),
+      (e.async = !0),
+      (e.onload = () => {
+        window.ChatbotWidget.default({
+          shopGptServerUrl: "https://fb1f-183-83-54-141.ngrok-free.app/api/v1/openai-thread/create-completions",
+          sessionId: "123456",
+          shopId :"655ee5f745898a6962d4b77b",
+          token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZpamF5LmRoYWtlZEByYW1wd2luLmNvbSIsImlkIjoiNjU0Yjg5ODAwMjU5NWM0N2Q1NjcwNmMzIiwiaWF0IjoxNzAwNzIyMDE1LCJleHAiOjE3MDE1ODYwMTV9.6T5pBVGAjXF9LFz-Emx43QOZDbJrGDYMd799O4HT5B0",
+          welcomeMessage:"I am Shapewear Bot, how can i assist you?",
+          initialPayload: "/greet"
+        });
+      }),
+      t.insertBefore(e, t.firstChild);
+  })();</script></html>

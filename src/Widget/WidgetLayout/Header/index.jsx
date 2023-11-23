@@ -1,75 +1,77 @@
-import { Bars3BottomRightIcon } from "@heroicons/react/24/outline";
+// import { Bars3BottomRightIcon } from "@heroicons/react/24/outline";
 import { useContext, useState } from "react";
 import AppContext from "../../AppContext";
-import { motion } from "framer-motion";
-import { useDetectClickOutside } from "../../../hooks/useDetectClickOutside";
-import { useDispatch } from "react-redux";
-import { setToggleWidget } from "../../widgetSlice";
-import {
-  removeAllMessages,
-  resetBot,
-  resetMessageState,
-  setUserTypingPlaceholder,
-  toggleBotTyping,
-  toggleUserTyping,
-} from "../Messages/messageSlice";
-import { Icon } from "./Icons";
+// import { motion } from "framer-motion";
+// import { useDetectClickOutside } from "../../../hooks/useDetectClickOutside";
+// import { useDispatch } from "react-redux";
+// import { setToggleWidget } from "../../widgetSlice";
+// import {
+//   removeAllMessages,
+//   resetBot,
+//   resetMessageState,
+//   setUserTypingPlaceholder,
+//   toggleBotTyping,
+//   toggleUserTyping,
+// } from "../Messages/messageSlice";
+// import { Icon } from "./Icons";
 
-const dropdownMenu = [
-  {
-    title: "Restart",
-  },
-  {
-    title: "Clear Chat",
-  },
-  {
-    title: "Close",
-  },
-];
+// const dropdownMenu = [
+//   {
+//     title: "Restart",
+//   },
+//   {
+//     title: "Clear Chat",
+//   },
+//   {
+//     title: "Close",
+//   },
+// ];
 
 export const Header = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const appContext = useContext(AppContext);
   const {
     botSubTitle,
     botTitle,
     botAvatar,
     chatHeaderCss,
-    rasaServerUrl,
-    userId,
-    metadata,
+    // shopGptServerUrl,
+    // welcomeMessage,
+    // userId,
+    // metadata,
   } = appContext;
 
   const { textColor, backgroundColor, enableBotAvatarBorder } = chatHeaderCss;
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useDetectClickOutside({
-    setShowModal: setShowDropdown,
-  });
+  // const [showDropdown, setShowDropdown] = useState(false);
+  // const dropdownRef = useDetectClickOutside({
+  //   setShowModal: setShowDropdown,
+  // });
 
-  const handleCloseButton = () => {
-    dispatch(setToggleWidget(false));
-    setShowDropdown(!showDropdown);
-  };
+  // const handleCloseButton = () => {
+  //   dispatch(setToggleWidget(false));
+  //   setShowDropdown(!showDropdown);
+  // };
 
-  const handleClearChatButton = () => {
-    dispatch(removeAllMessages());
-    dispatch(toggleBotTyping(false));
-    dispatch(toggleUserTyping(true));
-    dispatch(setUserTypingPlaceholder("Type you message..."));
-    setShowDropdown(!showDropdown);
-  };
-  const handleRestartButton = () => {
-    dispatch(resetMessageState());
-    setShowDropdown(!showDropdown);
-    dispatch(
-      resetBot({
-        rasaServerUrl,
-        message: "/restart",
-        sender: userId,
-        metadata,
-      })
-    );
-  };
+  // const handleClearChatButton = () => {
+  //   dispatch(removeAllMessages());
+  //   dispatch(toggleBotTyping(false));
+  //   dispatch(toggleUserTyping(true));
+  //   dispatch(setUserTypingPlaceholder("Type you message..."));
+  //   setShowDropdown(!showDropdown);
+  // };
+  // const handleRestartButton = () => {
+  //   dispatch(resetMessageState());
+  //   setShowDropdown(!showDropdown);
+  //   dispatch(
+  //     resetBot({
+  //       shopGptServerUrl,
+  //       message: "/restart",
+  //       welcomeMessage,
+  //       sender: userId,
+  //       metadata,
+  //     })
+  //   );
+  // };
   return (
     <>
       <div
@@ -131,7 +133,7 @@ export const Header = () => {
                     <Icon name={title} />
                   </div>
                   <div>
-                    <span className="block py-2 px-2">{title}</span>
+                    <span className="block px-2 py-2">{title}</span>
                   </div>
                 </div>
               );

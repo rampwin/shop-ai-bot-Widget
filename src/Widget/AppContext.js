@@ -1,7 +1,11 @@
 import { createContext } from "react";
 
 const AppContext = createContext({
-  rasaServerUrl: "",
+  shopGptServerUrl: "",
+  sessionId: "",
+  shopId: "",
+  token: "",
+  welcomeMessage: "",
   initialPayload: "",
   metadata: {},
   botAvatar: "",
@@ -18,7 +22,7 @@ const AppContext = createContext({
   buttonsCss: {},
   chatHeaderCss: {},
   errorMessages: [],
-  embedded:false
+  embedded: false,
 });
 
 export default AppContext;

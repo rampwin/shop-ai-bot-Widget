@@ -21,14 +21,22 @@ const Textarea = styled.textarea`
 
 export const Keypad = () => {
   const dispatch = useDispatch();
-  const theme = useContext(AppContext);
+  const appContext = useContext(AppContext);
   const [userInput, setUserInput] = useState("");
   const userTypingPlaceholder = useSelector(
     (state) => state.messageState.userTypingPlaceholder
   );
 
   const userTyping = useSelector((state) => state.messageState.userTyping);
-  const {  rasaServerUrl, userId, textColor } = theme;
+  const {
+    shopGptServerUrl,
+    sessionId,
+    shopId,
+    token,
+    welcomeMessage,
+    userId,
+    textColor,
+  } = appContext;
 
   const handleSubmit = async () => {
     if (userInput.length > 0) {
@@ -38,16 +46,25 @@ export const Keypad = () => {
       dispatch(toggleBotTyping(true));
       dispatch(
         fetchBotResponse({
-          rasaServerUrl,
+          shopGptServerUrl,
+          sessionId,
+          shopId,
+          token,
+          welcomeMessage,
           message: userInput.trim(),
           sender: userId,
         })
       );
     }
+    // console.log("shopGptserverUrl", shopGptServerUrl);
+    // console.log("sessonId", sessionId);
+    // console.log("shopId", shopId);
+    // console.log("token", token);
+    // console.log("welcomeMessage", welcomeMessage);
   };
 
   return (
-    <div className="mt-auto flex  h-[12%] items-center   rounded-t-3xl rounded-b-[2rem]  bg-slate-50">
+    <div className="mt-auto flex  h-[12%] items-center   rounded-b-[2rem] rounded-t-3xl  bg-slate-50">
       <Textarea
         rows="1"
         className={` mx-4 block w-full resize-none bg-slate-50 p-2.5 text-sm text-gray-900 outline-none ${

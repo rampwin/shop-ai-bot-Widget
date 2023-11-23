@@ -16,7 +16,11 @@ export const Widget = (props) => {
 };
 
 Widget.prototype = {
-  rasaServerUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  shopGptServerUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  sessionId: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  shopId: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  token: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  welcomeMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   initialPayload: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   metadata: PropTypes.oneOfType([PropTypes.object, PropTypes.element]),
@@ -47,8 +51,11 @@ Widget.prototype = {
 };
 
 Widget.defaultProps = {
-  rasaServerUrl: "http://localhost:5005/webhooks/rest/webhook",
-  userId: "jitesh97",
+  shopGptServerUrl: "",
+  sessionId: "",
+  shopId: "",
+  token: "",
+  welcomeMessage: "",
   initialPayload: "/greet",
   metadata: {},
   botAvatar:

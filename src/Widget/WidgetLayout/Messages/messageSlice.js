@@ -4,6 +4,7 @@ import { getBotResponse } from "../../../utils/helpers";
 export const fetchBotResponse = createAsyncThunk(
   "messages/fetchBotResponse",
   async (payload, thunkAPI) => {
+    // console.log(payload);
     const response = await getBotResponse(payload);
     console.log("bot response", response);
     await new Promise((r) => setTimeout(r, 1000));
