@@ -4,7 +4,6 @@ import { getBotResponse } from "../../../utils/helpers";
 export const fetchBotResponse = createAsyncThunk(
   "messages/fetchBotResponse",
   async (payload, thunkAPI) => {
-    // console.log(payload);
     const response = await getBotResponse(payload);
     console.log("bot response", response);
     await new Promise((r) => setTimeout(r, 1000));
@@ -88,11 +87,11 @@ export const messagesSlice = createSlice({
       if (messageArr.length > 0) {
         for (let index = 0; index < messageArr.length; index += 1) {
           const message = messageArr[index];
-          console.log(message);
+          // console.log(message);
           // messageType: text
-          if (message?.message) {
+          if (message?.botMessage) {
             state.messages.push({
-              text: message.message,
+              text: message.botMessage,
               sender: "BOT",
               type: "text",
               ts: new Date(),
