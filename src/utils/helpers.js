@@ -48,7 +48,7 @@ export const getBotResponse = async ({
     //   }
     // );
     const response = await axios.post(
-      "http://localhost:4001/api/v1/create-completion",
+      "https://chatbot-api.anitechgroup.com/api/v1/create-completion",
       postData
     );
 
