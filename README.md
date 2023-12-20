@@ -2,8 +2,6 @@
 
 ![ScreenShot](public/banner.png)
 
-
-
 ![markdown](public/made-for-bots-using-rasa.svg)
 
 ![markdown](public/built-with-react.svg)
@@ -22,5 +20,6 @@
 
 # Usage
 
+To make build file, run "npm run build"
 
 You can follow the instructions [here](docs/instructions.md)
