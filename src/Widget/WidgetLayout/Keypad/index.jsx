@@ -1,5 +1,5 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { createUserMessage } from "../../../utils/helpers";
@@ -10,6 +10,7 @@ import {
   toggleBotTyping,
   toggleUserTyping,
 } from "../Messages/messageSlice";
+import { SocketContext } from "../../../SocketContext";
 
 const Textarea = styled.textarea`
   -ms-overflow-style: none;
@@ -26,6 +27,9 @@ export const Keypad = () => {
   const userTypingPlaceholder = useSelector(
     (state) => state.messageState.userTypingPlaceholder
   );
+
+  const socket = useContext(SocketContext).socket;
+  const user = useContext(SocketContext).user;
 
   const userTyping = useSelector((state) => state.messageState.userTyping);
   const {
@@ -53,15 +57,28 @@ export const Keypad = () => {
           welcomeMessage,
           message: userInput.trim(),
           sender: userId,
+          socket,
+          isEmitMessage: true,
+          user,
         })
       );
     }
-    // console.log("shopGptserverUrl", shopGptServerUrl);
-    // console.log("sessonId", sessionId);
-    // console.log("shopId", shopId);
-    // console.log("token", token);
-    // console.log("welcomeMessage", welcomeMessage);
   };
+
+  useEffect(() => {
+    let sessionId = localStorage.getItem("sessionId") || String(Date.now());
+    localStorage.setItem("sessionId", sessionId);
+
+    socket?.on(`getMessage-${sessionId}`, (data) => {
+      dispatch(
+        fetchBotResponse({ message: data.message.text, isEmitMessage: false })
+      );
+    });
+
+    return () => {
+      socket?.off(`getMessage-${sessionId}`);
+    };
+  }, [socket, user]);
 
   return (
     <div className="mt-auto flex  h-[12%] items-center   rounded-b-[2rem] rounded-t-3xl  bg-slate-50">

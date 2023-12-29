@@ -4,13 +4,16 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
 import { WidgetLayout } from "./WidgetLayout";
+import { SocketContextProvider } from "../SocketContext";
 
 export const Widget = (props) => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <WidgetLayout {...props} />
-      </PersistGate>
+      <SocketContextProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <WidgetLayout {...props} />
+        </PersistGate>
+      </SocketContextProvider>
     </Provider>
   );
 };

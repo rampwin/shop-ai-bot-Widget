@@ -78,6 +78,7 @@ export const messagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBotResponse.fulfilled, (state, action) => {
+      if (action.payload.botMessage === null) return;
       state.botTyping = false;
       state.userTyping = true;
       state.userTypingPlaceholder = "Type your message here...";
@@ -87,7 +88,6 @@ export const messagesSlice = createSlice({
       if (messageArr.length > 0) {
         for (let index = 0; index < messageArr.length; index += 1) {
           const message = messageArr[index];
-          // console.log(message);
           // messageType: text
           if (message?.botMessage) {
             state.messages.push({

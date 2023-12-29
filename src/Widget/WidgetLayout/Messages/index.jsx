@@ -12,6 +12,7 @@ import {
   toggleBotTyping,
   toggleUserTyping,
 } from "./messageSlice";
+import { SocketContext } from "../../../SocketContext";
 
 const MessagesDiv = styled.div`
 /* width */
@@ -37,6 +38,7 @@ const MessagesDiv = styled.div`
 export const Messages = () => {
   const dispatch = useDispatch();
   const appContext = useContext(AppContext);
+  const socket = useContext(SocketContext).socket;
 
   const {
     widgetColor,
@@ -47,7 +49,9 @@ export const Messages = () => {
   } = appContext;
   const { messages, userGreeted } = useSelector((state) => state.messageState);
   const bottomRef = useScrollBottom(messages);
+
   useEffect(() => {
+    const isEmitMessage = true;
     if (!userGreeted && messages.length < 1) {
       dispatch(setUserGreeted(true));
       dispatch(setUserTypingPlaceholder("Please wait while bot is typing..."));
@@ -59,6 +63,8 @@ export const Messages = () => {
           welcomeMessage,
           message: initialPayload,
           sender: userId,
+          socket,
+          isEmitMessage,
         })
       );
     }
@@ -70,6 +76,7 @@ export const Messages = () => {
     userGreeted,
     userId,
   ]);
+
   return (
     <MessagesDiv
       className="absolute top-[17%] flex h-[72%] w-full flex-col space-y-1 self-start overflow-y-auto rounded-t-[1.2rem] bg-white p-2 pt-2"

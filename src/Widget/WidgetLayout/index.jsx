@@ -8,14 +8,15 @@ import { Header } from "./Header";
 import { Keypad } from "./Keypad";
 import { Launcher } from "./Launcher";
 import { Messages } from "./Messages";
+
 export const WidgetLayout = (props) => {
   const dispatch = useDispatch();
   let { toggleWidget, userId: _userId } = useSelector(
     (state) => state.widgetState
   );
   let { userId, embedded } = props;
-  console.log(embedded);
   let userIdRef = useRef(_userId);
+
   useEffect(() => {
     if (userId) {
       userIdRef.current = userId;

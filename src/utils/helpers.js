@@ -1,6 +1,3 @@
-import axios from "axios";
-// import { v4 as uuidv4 } from "uuid";
-
 export const createUserMessage = (message) => {
   return {
     text: message,
@@ -11,12 +8,11 @@ export const createUserMessage = (message) => {
 };
 
 export const getBotResponse = async ({
-  shopGptServerUrl,
-  // sessionId,
-  shopId,
-  token,
   welcomeMessage,
   message,
+  socket,
+  isEmitMessage,
+  user,
 }) => {
   let sessionId = localStorage.getItem("sessionId") || String(Date.now());
   localStorage.setItem("sessionId", sessionId);
@@ -33,27 +29,17 @@ export const getBotResponse = async ({
     if (message === "/greet" || message === "/restart") {
       return { message: welcomeMessage };
     }
-    // const response = await axios.post(
-    //   shopGptServerUrl,
-    //   {
-    //     store_id: shopId,
-    //     message: message,
-    //     session_id: sessionId,
-    //   },
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: token,
-    //     },
-    //   }
-    // );
-    const response = await axios.post(
-      "https://chatbot-api.anitechgroup.com/api/v1/create-completion",
-      postData
-    );
-
-    console.log(response);
-    return response.data;
+    if (isEmitMessage) {
+      if (user?.isChatGptEnabled) {
+        socket.emit("sent_message", postData);
+        return { botMessage: null };
+      } else {
+        socket.emit(`user_sent_message`, { message, contactId: user._id });
+        return { botMessage: "" };
+      }
+    }
+    const response = { botMessage: message };
+    return response;
   } catch (error) {
     console.log("error occurred fetching bot response", error);
     return [];
