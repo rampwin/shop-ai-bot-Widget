@@ -58,7 +58,7 @@ Widget.defaultProps = {
   sessionId: "",
   shopId: "",
   token: "",
-  welcomeMessage: "",
+  welcomeMessage: "I am Anitech Bot, how can i assist you?",
   initialPayload: "/greet",
   metadata: {},
   botAvatar:

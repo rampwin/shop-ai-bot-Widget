@@ -27,7 +27,7 @@ export const getBotResponse = async ({
 
   try {
     if (message === "/greet" || message === "/restart") {
-      return { message: welcomeMessage };
+      return { botMessage: welcomeMessage };
     }
     if (isEmitMessage) {
       if (user?.isChatGptEnabled) {
