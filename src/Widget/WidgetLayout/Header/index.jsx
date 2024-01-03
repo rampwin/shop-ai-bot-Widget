@@ -79,10 +79,14 @@ export const Header = () => {
         style={{ backgroundColor, color: textColor }}
       >
         <div
-          className="shrink-0 rounded-full border-[1px]  p-2"
-          style={{ borderColor: textColor, borderWidth: enableBotAvatarBorder }}
+          className="shrink-0 rounded-full   p-2"
+          style={{ borderColor: textColor }}
         >
-          <img className="h-12 w-12" src={botAvatar} alt="Bot Logo" />
+          <img
+            className="h-12 w-12 rounded-full"
+            src={botAvatar}
+            alt="Bot Logo"
+          />
         </div>
         <div className="w-full ">
           <div className="text-xl font-semibold antialiased">{botTitle}</div>
