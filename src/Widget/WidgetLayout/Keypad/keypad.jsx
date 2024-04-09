@@ -6,7 +6,6 @@ import { createUserMessage } from "../../../utils/helpers";
 import AppContext from "../../AppContext";
 import {
   addMessage,
-  fetchBotResponse,
   toggleBotTyping,
   toggleUserTyping,
 } from "../Messages/messageSlice";
@@ -36,6 +35,8 @@ export const Keypad = () => {
     shopGptServerUrl,
     sessionId,
     shopId,
+    channel_id,
+    account_id,
     token,
     welcomeMessage,
     userId,
@@ -43,37 +44,28 @@ export const Keypad = () => {
   } = appContext;
 
   const handleSubmit = async () => {
+    const timestamp = new Date();
     if (userInput.length > 0) {
       dispatch(addMessage(createUserMessage(userInput.trim())));
+      socket.emit("widget_message_received", {
+        message: {
+          type: "text",
+          text: userInput,
+          fromMe: false,
+        },
+        timestamp,
+        integration_id: channel_id,
+        account_id,
+        session_id: localStorage.getItem("sessionId"),
+      });
       setUserInput("");
-      dispatch(toggleUserTyping(false));
       dispatch(toggleBotTyping(true));
-      dispatch(
-        fetchBotResponse({
-          shopGptServerUrl,
-          sessionId,
-          shopId,
-          token,
-          welcomeMessage,
-          message: userInput.trim(),
-          sender: userId,
-          socket,
-          isEmitMessage: true,
-          user,
-        })
-      );
     }
   };
 
   useEffect(() => {
     let sessionId = localStorage.getItem("sessionId") || String(Date.now());
     localStorage.setItem("sessionId", sessionId);
-
-    socket?.on(`getMessage-${sessionId}`, (data) => {
-      dispatch(
-        fetchBotResponse({ message: data.message.text, isEmitMessage: false })
-      );
-    });
 
     return () => {
       socket?.off(`getMessage-${sessionId}`);

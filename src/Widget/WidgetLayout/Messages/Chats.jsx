@@ -1,6 +1,6 @@
 import moment from "moment";
-import { BotMessage } from "./BotMessage";
-import { UserTextmessage } from "./UserMessage";
+import { BotMessage } from "./BotMessage/bot_message";
+import { UserTextmessage } from "./UserMessage/user_message";
 
 export const Chats = ({ messages }) => {
   let i = 0;

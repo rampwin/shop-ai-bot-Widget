@@ -6,7 +6,6 @@ import AppContext from "../../../AppContext";
 import {
   addMessage,
   disableButtons,
-  fetchBotResponse,
   toggleBotTyping,
   toggleUserTyping,
 } from "../messageSlice";
@@ -68,14 +67,6 @@ export const Buttons = ({ buttons, index, showBotAvatar, ts, callback }) => {
                   dispatch(disableButtons(index));
                   dispatch(addMessage(createUserMessage(title)));
                   dispatch(toggleBotTyping(true));
-                  dispatch(toggleUserTyping(false));
-                  dispatch(
-                    fetchBotResponse({
-                      shopGptServerUrl,
-                      message: payload,
-                      sender: userId,
-                    })
-                  );
                 }
               }}
             >

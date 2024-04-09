@@ -1,22 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getBotResponse } from "../../../utils/helpers";
 
-export const fetchBotResponse = createAsyncThunk(
-  "messages/fetchBotResponse",
-  async (payload, thunkAPI) => {
-    const response = await getBotResponse(payload);
-    console.log("bot response", response);
-    await new Promise((r) => setTimeout(r, 1000));
-    return response;
-  }
-);
-
-export const resetBot = createAsyncThunk(
-  "messages/resetBot",
-  async (payload, thunkAPI) => {
-    await getBotResponse(payload);
-  }
-);
+// export const fetchBotResponse = createAsyncThunk(
+//   "messages/fetchBotResponse",
+//   async (payload, thunkAPI) => {
+//     const response = await getBotResponse(payload);
+//     console.log("bot response", response);
+//     await new Promise((r) => setTimeout(r, 1000));
+//     return response;
+//   }
+// );
 
 const initialState = {
   messages: [],
@@ -76,61 +68,61 @@ export const messagesSlice = createSlice({
       state.userGreeted = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchBotResponse.fulfilled, (state, action) => {
-      if (action.payload.botMessage === null) return;
-      state.botTyping = false;
-      state.userTyping = true;
-      state.userTypingPlaceholder = "Type your message here...";
-      const messages = action.payload;
-      let messageArr = [];
-      messageArr.push(messages);
-      if (messageArr.length > 0) {
-        for (let index = 0; index < messageArr.length; index += 1) {
-          const message = messageArr[index];
-          // messageType: text
-          if (message?.botMessage) {
-            state.messages.push({
-              text: message.botMessage,
-              sender: "BOT",
-              type: "text",
-              ts: new Date(),
-            });
-          }
+  // extraReducers: (builder) => {
+  //   builder.addCase(fetchBotResponse.fulfilled, (state, action) => {
+  //     if (action.payload.botMessage === null) return;
+  //     state.botTyping = false;
+  //     state.userTyping = true;
+  //     state.userTypingPlaceholder = "Type your message here...";
+  //     const messages = action.payload;
+  //     let messageArr = [];
+  //     messageArr.push(messages);
+  //     if (messageArr.length > 0) {
+  //       for (let index = 0; index < messageArr.length; index += 1) {
+  //         const message = messageArr[index];
+  //         // messageType: text
+  //         if (message?.botMessage) {
+  //           state.messages.push({
+  //             text: message.botMessage,
+  //             sender: "BOT",
+  //             type: "text",
+  //             ts: new Date(),
+  //           });
+  //         }
 
-          // messageType: image
-          if (message?.image) {
-            state.messages.push({
-              src: message.image,
-              sender: "BOT",
-              type: "image",
-              ts: new Date(),
-            });
-          }
+  //         // messageType: image
+  //         if (message?.image) {
+  //           state.messages.push({
+  //             src: message.image,
+  //             sender: "BOT",
+  //             type: "image",
+  //             ts: new Date(),
+  //           });
+  //         }
 
-          // messageType: buttons
-          if (message?.buttons) {
-            if (message.buttons.length > 0) {
-              state.messages.push({
-                buttons: message.buttons,
-                sender: "BOT",
-                type: "buttons",
-                ts: new Date(),
-                callback: true,
-              });
-            }
-          }
-        }
-      } else {
-        state.messages.push({
-          text: "Unfortunately, I'm having some problem 😅. I would appreciate it if you could try again later",
-          sender: "BOT",
-          type: "text",
-          ts: new Date(),
-        });
-      }
-    });
-  },
+  //         // messageType: buttons
+  //         if (message?.buttons) {
+  //           if (message.buttons.length > 0) {
+  //             state.messages.push({
+  //               buttons: message.buttons,
+  //               sender: "BOT",
+  //               type: "buttons",
+  //               ts: new Date(),
+  //               callback: true,
+  //             });
+  //           }
+  //         }
+  //       }
+  //     } else {
+  //       state.messages.push({
+  //         text: "Unfortunately, I'm having some problem 😅. I would appreciate it if you could try again later",
+  //         sender: "BOT",
+  //         type: "text",
+  //         ts: new Date(),
+  //       });
+  //     }
+  //   });
+  // },
 });
 
 export const {

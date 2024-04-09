@@ -6,7 +6,6 @@ import AppContext from "../../AppContext";
 import { BotTyping } from "./BotMessage/BotTyping";
 import { Chats } from "./Chats";
 import {
-  fetchBotResponse,
   setUserGreeted,
   setUserTypingPlaceholder,
   toggleBotTyping,
@@ -51,22 +50,10 @@ export const Messages = () => {
   const bottomRef = useScrollBottom(messages);
 
   useEffect(() => {
-    const isEmitMessage = true;
     if (!userGreeted && messages.length < 1) {
       dispatch(setUserGreeted(true));
       dispatch(setUserTypingPlaceholder("Please wait while bot is typing..."));
       dispatch(toggleBotTyping(true));
-      dispatch(toggleUserTyping(false));
-      dispatch(
-        fetchBotResponse({
-          shopGptServerUrl,
-          welcomeMessage,
-          message: initialPayload,
-          sender: userId,
-          socket,
-          isEmitMessage,
-        })
-      );
     }
   }, [
     dispatch,

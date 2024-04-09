@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
-import { WidgetLayout } from "./WidgetLayout";
+import { WidgetLayout } from "./WidgetLayout/widgetLayout";
 import { SocketContextProvider } from "../SocketContext";
 
 export const Widget = (props) => {
@@ -62,6 +62,8 @@ Widget.defaultProps = {
   textColor: "#ffffff",
   userMsgBackgroundColor: "#8f001b",
   botTitle: "Hi! I'm Ava",
+  channel_id: "660bcd66177d9d7e62f8b6f0",
+  account_id: "615bfc72ba2a106ddcd46a2f",
   botSubTitle: "Sales & Services Assistant",
   botMsgBackgroundColor: "rgb(237,237,237)",
   botResponseDelay: "",

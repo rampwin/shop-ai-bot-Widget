@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppContext from "../AppContext";
 import { setUserId } from "../widgetSlice";
-import { Header } from "./Header";
-import { Keypad } from "./Keypad";
-import { Launcher } from "./Launcher";
-import { Messages } from "./Messages";
+import { Header } from "./Header/header";
+import { Keypad } from "./Keypad/keypad";
+import { Launcher } from "./Launcher/launcher";
+import { Messages } from "./Messages/messages";
 
 export const WidgetLayout = (props) => {
   const dispatch = useDispatch();
