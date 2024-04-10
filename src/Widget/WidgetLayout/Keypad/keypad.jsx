@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { createUserMessage } from "../../../utils/helpers";
 import AppContext from "../../AppContext";
-import {
-  addMessage,
-  toggleBotTyping,
-  toggleUserTyping,
-} from "../Messages/messageSlice";
+import { addMessage, toggleUserTyping } from "../Messages/messageSlice";
 import { SocketContext } from "../../../SocketContext";
 
 const Textarea = styled.textarea`
@@ -35,11 +31,10 @@ export const Keypad = () => {
     shopGptServerUrl,
     sessionId,
     shopId,
-    channel_id,
     account_id,
     token,
     welcomeMessage,
-    userId,
+    channel_id,
     textColor,
   } = appContext;
 
@@ -59,7 +54,6 @@ export const Keypad = () => {
         session_id: localStorage.getItem("sessionId"),
       });
       setUserInput("");
-      dispatch(toggleBotTyping(true));
     }
   };
 

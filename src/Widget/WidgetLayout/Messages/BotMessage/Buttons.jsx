@@ -3,12 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { createUserMessage } from "../../../../utils/helpers";
 import AppContext from "../../../AppContext";
-import {
-  addMessage,
-  disableButtons,
-  toggleBotTyping,
-  toggleUserTyping,
-} from "../messageSlice";
+import { addMessage, disableButtons, toggleUserTyping } from "../messageSlice";
 import { formattedTs } from "../utils";
 
 export const Button = styled.button`
@@ -33,7 +28,7 @@ export const Button = styled.button`
 export const Buttons = ({ buttons, index, showBotAvatar, ts, callback }) => {
   const dispatch = useDispatch();
   const appContext = useContext(AppContext);
-  const { buttonsCss, botAvatar, shopGptServerUrl, userId } = appContext;
+  const { buttonsCss, botAvatar, shopGptServerUrl, channel_id } = appContext;
   return (
     <div className="flex space-x-1 ">
       <div className={`flex w-5 items-start`}>
@@ -66,7 +61,6 @@ export const Buttons = ({ buttons, index, showBotAvatar, ts, callback }) => {
                   const { title, payload } = item;
                   dispatch(disableButtons(index));
                   dispatch(addMessage(createUserMessage(title)));
-                  dispatch(toggleBotTyping(true));
                 }
               }}
             >

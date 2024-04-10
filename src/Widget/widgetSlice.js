@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   toggleWidget: false,
-  userId: null,
+  channel_id: null,
 };
 
 export const widgetSlice = createSlice({
@@ -13,7 +13,7 @@ export const widgetSlice = createSlice({
       state.toggleWidget = action.payload;
     },
     setUserId: (state, action) => {
-      state.userId = action.payload;
+      state.channel_id = action.payload;
     },
   },
 });

@@ -1,6 +1,6 @@
 # Instructions
 
-*Make sure you have set up the Rasa on your system or server.*
+_Make sure you have set up the Rasa on your system or server._
 
 ## Integration
 
@@ -10,9 +10,10 @@
   rasa run -m models --enable-api --cors "*" --debug
   ```
 - If you have custom actions, you can start the action server using the below command
-    ```
-    rasa run actions --cors "*" --debug
-    ```
+
+  ```
+  rasa run actions --cors "*" --debug
+  ```
 
 - In your html file, import the `Chatbot Widget` module present inside [`dist/index.js`](../dist/index.js) as shown below
 
@@ -26,7 +27,7 @@
         (e.onload = () => {
           window.ChatbotWidget.default({
             rasaServerUrl: "http://localhost:5005/webhooks/rest/webhook",
-            userId: "jitesh97",
+            channel_id: "jitesh97",
             initialPayload: "/greet",
             metadata: {},
             botAvatar:
@@ -65,7 +66,6 @@
   </script>
 ```
 
-- Add your Rasa Server URL  to the config to `rasaServerUrl` param
+- Add your Rasa Server URL to the config to `rasaServerUrl` param
 
 - Now you can open the html file in the browser and test the widget
-

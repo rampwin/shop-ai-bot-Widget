@@ -8,7 +8,6 @@ import { Chats } from "./Chats";
 import {
   setUserGreeted,
   setUserTypingPlaceholder,
-  toggleBotTyping,
   toggleUserTyping,
 } from "./messageSlice";
 import { SocketContext } from "../../../SocketContext";
@@ -44,7 +43,7 @@ export const Messages = () => {
     initialPayload,
     shopGptServerUrl,
     welcomeMessage,
-    userId,
+    channel_id,
   } = appContext;
   const { messages, userGreeted } = useSelector((state) => state.messageState);
   const bottomRef = useScrollBottom(messages);
@@ -53,7 +52,6 @@ export const Messages = () => {
     if (!userGreeted && messages.length < 1) {
       dispatch(setUserGreeted(true));
       dispatch(setUserTypingPlaceholder("Please wait while bot is typing..."));
-      dispatch(toggleBotTyping(true));
     }
   }, [
     dispatch,
@@ -61,7 +59,7 @@ export const Messages = () => {
     messages.length,
     shopGptServerUrl,
     userGreeted,
-    userId,
+    channel_id,
   ]);
 
   return (

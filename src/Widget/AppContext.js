@@ -14,7 +14,7 @@ const AppContext = createContext({
   widgetColor: "",
   botTitle: "",
   botSubTitle: "",
-  userId: null,
+  channel_id: null,
   textColor: "",
   userMsgBackgroundColor: "",
   botMsgBackgroundColor: "",

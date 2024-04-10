@@ -37,7 +37,7 @@ export const Header = () => {
     chatHeaderCss,
     // shopGptServerUrl,
     // welcomeMessage,
-    // userId,
+    // channel_id,
     // metadata,
   } = appContext;
 
@@ -67,7 +67,7 @@ export const Header = () => {
   //       shopGptServerUrl,
   //       message: "/restart",
   //       welcomeMessage,
-  //       sender: userId,
+  //       sender: channel_id,
   //       metadata,
   //     })
   //   );

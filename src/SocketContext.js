@@ -3,14 +3,16 @@ import { io } from "socket.io-client";
 import {
   addMessage,
   toggleBotTyping,
-  toggleUserTyping,
 } from "./Widget/WidgetLayout/Messages/messageSlice";
+import AppContext from "./Widget/AppContext";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 export const SocketContext = createContext();
 
 export const SocketContextProvider = ({ children }) => {
+  const appContext = useContext(AppContext);
+  const { channel_id } = appContext;
   const [socket, setSocket] = useState(null);
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
@@ -21,29 +23,24 @@ export const SocketContextProvider = ({ children }) => {
     const socket = io.connect("http://localhost:4123/", {
       query: {
         sessionId: `${sessionId}`,
-        channel_id: "660bcd66177d9d7e62f8b6f0",
+        channel_id: channel_id,
       },
       transports: ["websocket"],
     });
     socket.on("connect", async () => {
       console.log(socket.id, "socket connection established");
-      socket.on(`get_contact-${socket.id}`, (data) => {
-        setUser(data);
-      });
-
-      socket.on("bot message", (eventJson) => {
+      socket.on("bot_message", (eventJson) => {
         const botMessage = {
           type: eventJson.type,
           [eventJson.type]: eventJson.message,
           ts: eventJson.timeStamp,
           sender: "BOT",
         };
-        console.log("Bot Message", botMessage);
         dispatch(addMessage(botMessage));
-        dispatch(toggleBotTyping(false));
       });
-      socket.on("bot typing", () => {
-        dispatch(toggleBotTyping(true));
+      socket.on("bot_typing", (eventJson) => {
+        console.log("status changed");
+        dispatch(toggleBotTyping(eventJson.status));
       });
     });
     socket.on("disconnect", () => {

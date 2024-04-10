@@ -3,17 +3,21 @@ import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
+import AppContext from "./AppContext";
 import { WidgetLayout } from "./WidgetLayout/widgetLayout";
 import { SocketContextProvider } from "../SocketContext";
 
 export const Widget = (props) => {
+  console.log(props);
   return (
     <Provider store={store}>
-      <SocketContextProvider>
-        <PersistGate loading={null} persistor={persistor}>
-          <WidgetLayout {...props} />
-        </PersistGate>
-      </SocketContextProvider>
+      <AppContext.Provider value={{ ...props }}>
+        <SocketContextProvider>
+          <PersistGate loading={null} persistor={persistor}>
+            <WidgetLayout {...props} />
+          </PersistGate>
+        </SocketContextProvider>
+      </AppContext.Provider>
     </Provider>
   );
 };
@@ -25,7 +29,7 @@ Widget.prototype = {
   token: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   welcomeMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   initialPayload: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  userId: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  channel_id: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   metadata: PropTypes.oneOfType([PropTypes.object, PropTypes.element]),
   botAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   widgetColor: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
@@ -62,7 +66,7 @@ Widget.defaultProps = {
   textColor: "#ffffff",
   userMsgBackgroundColor: "#8f001b",
   botTitle: "Hi! I'm Ava",
-  channel_id: "660bcd66177d9d7e62f8b6f0",
+  channel_id: "6616653173048167807714e2",
   account_id: "615bfc72ba2a106ddcd46a2f",
   botSubTitle: "Sales & Services Assistant",
   botMsgBackgroundColor: "rgb(237,237,237)",
