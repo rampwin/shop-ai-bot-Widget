@@ -22,6 +22,7 @@ export const messagesSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, action) => {
+      console.log(state.messages);
       if (action.payload.sender === "USER") {
         state.messages = state.messages.map((message) => {
           if (message.type === "custom") {
@@ -40,6 +41,12 @@ export const messagesSlice = createSlice({
           return message;
         });
       }
+      if (
+        state.messages[state.messages.length - 1]?.text ===
+          action.payload?.text &&
+        action.payload?.sender === "BOT"
+      )
+        return;
       state.messages.push(action.payload);
     },
     resetMessageState: () => {

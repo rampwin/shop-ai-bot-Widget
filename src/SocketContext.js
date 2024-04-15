@@ -12,7 +12,7 @@ export const SocketContext = createContext();
 
 export const SocketContextProvider = ({ children }) => {
   const appContext = useContext(AppContext);
-  const { channel_id } = appContext;
+  const { channel_id, welcomeMessage } = appContext;
   const [socket, setSocket] = useState(null);
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
@@ -27,8 +27,16 @@ export const SocketContextProvider = ({ children }) => {
       },
       transports: ["websocket"],
     });
+    const welcomeMsg = {
+      type: "text",
+      text: welcomeMessage,
+      ts: new Date(),
+      sender: "BOT",
+    };
+    dispatch(addMessage(welcomeMsg));
     socket.on("connect", async () => {
       console.log(socket.id, "socket connection established");
+
       socket.on("bot_message", (eventJson) => {
         const botMessage = {
           type: eventJson.type,
