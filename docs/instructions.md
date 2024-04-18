@@ -26,7 +26,6 @@ _Make sure you have set up the Rasa on your system or server._
         (e.async = !0),
         (e.onload = () => {
           window.ChatbotWidget.default({
-            rasaServerUrl: "http://localhost:5005/webhooks/rest/webhook",
             channel_id: "jitesh97",
             initialPayload: "/greet",
             metadata: {},
@@ -65,7 +64,5 @@ _Make sure you have set up the Rasa on your system or server._
     })();
   </script>
 ```
-
-- Add your Rasa Server URL to the config to `rasaServerUrl` param
 
 - Now you can open the html file in the browser and test the widget

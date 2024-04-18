@@ -8,7 +8,6 @@ import { WidgetLayout } from "./WidgetLayout/widgetLayout";
 import { SocketContextProvider } from "../SocketContext";
 
 export const Widget = (props) => {
-  console.log(props);
   return (
     <Provider store={store}>
       <AppContext.Provider value={{ ...props }}>
@@ -60,6 +59,7 @@ Widget.prototype = {
 Widget.defaultProps = {
   welcomeMessage: "Welcome to anitech bot. How can I help you?",
   initialPayload: "/greet",
+  position: "right",
   widgetColor: "#8f001b",
   botAvatar:
     "https://1334637.fs1.hubspotusercontent-na1.net/hub/1334637/hubfs/logo.jpg",

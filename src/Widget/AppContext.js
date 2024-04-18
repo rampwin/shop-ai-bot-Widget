@@ -9,6 +9,7 @@ const AppContext = createContext({
   initialPayload: "",
   metadata: {},
   channel_id: "",
+  position: "",
   account_id: "",
   botAvatar: "",
   widgetColor: "",
