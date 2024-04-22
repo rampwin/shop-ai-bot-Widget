@@ -16,7 +16,7 @@ export const Launcher = () => {
         scale: [0, 1.1, 1],
       }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
-      className={`fixed ${position}-5 bottom-2 mr-2  inline-flex cursor-default items-center rounded-full  p-2 text-center text-sm font-medium text-white xs:right-0`}
+      className={`fixed ${position}-2 bottom-2 inline-flex cursor-default items-center rounded-full text-center text-sm font-medium text-white xs:${position}-0`}
       style={{ backgroundColor: widgetColor, color: textColor }}
       onClick={(e) => {
         e.preventDefault();
@@ -30,7 +30,7 @@ export const Launcher = () => {
               rotate: [0, 90],
             }}
           >
-            <XMarkIcon className="h-10 w-10" />
+            <XMarkIcon className="h-12 w-12" />
           </motion.div>
         ) : (
           <motion.div>
