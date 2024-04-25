@@ -27,16 +27,7 @@ export const Keypad = () => {
   const user = useContext(SocketContext).user;
 
   const userTyping = useSelector((state) => state.messageState.userTyping);
-  const {
-    shopGptServerUrl,
-    sessionId,
-    shopId,
-    account_id,
-    token,
-    welcomeMessage,
-    channel_id,
-    textColor,
-  } = appContext;
+  const { account_id, channel_id } = appContext;
 
   const handleSubmit = async () => {
     const timestamp = new Date();
@@ -91,7 +82,7 @@ export const Keypad = () => {
         className={`${
           userInput.trim().length > 1 ? "cursor-default" : "cursor-not-allowed"
         } inline-flex justify-center rounded-full  p-2 hover:bg-slate-100 `}
-        style={{ color: textColor }}
+        style={{ color: "gray" }}
         onClick={(e) => {
           e.preventDefault();
           handleSubmit();

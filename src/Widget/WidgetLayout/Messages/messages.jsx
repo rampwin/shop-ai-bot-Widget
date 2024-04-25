@@ -36,15 +36,9 @@ const MessagesDiv = styled.div`
 export const Messages = () => {
   const dispatch = useDispatch();
   const appContext = useContext(AppContext);
-  const socket = useContext(SocketContext).socket;
 
-  const {
-    widgetColor,
-    initialPayload,
-    shopGptServerUrl,
-    welcomeMessage,
-    channel_id,
-  } = appContext;
+  const { widgetColor, initialPayload, shopGptServerUrl, channel_id } =
+    appContext;
   const { messages, userGreeted } = useSelector((state) => state.messageState);
   const bottomRef = useScrollBottom(messages);
 

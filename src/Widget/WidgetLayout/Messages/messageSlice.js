@@ -22,7 +22,6 @@ export const messagesSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, action) => {
-      console.log(state.messages);
       if (action.payload.sender === "USER") {
         state.messages = state.messages.map((message) => {
           if (message.type === "custom") {
