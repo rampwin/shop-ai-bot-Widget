@@ -57,7 +57,7 @@ Widget.prototype = {
 };
 
 Widget.defaultProps = {
-  welcomeMessage: "Welcome to anitech bot. How can I help you?",
+  welcomeMessage: null,
   initialPayload: "/greet",
   position: "right",
   widgetColor: "#8f001b",

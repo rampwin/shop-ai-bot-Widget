@@ -91,7 +91,7 @@ export const Keypad = () => {
         className={`${
           userInput.trim().length > 1 ? "cursor-default" : "cursor-not-allowed"
         } inline-flex justify-center rounded-full  p-2 hover:bg-slate-100 `}
-        style={{ color: textColor }}
+        style={{ color: "gray" }}
         onClick={(e) => {
           e.preventDefault();
           handleSubmit();
