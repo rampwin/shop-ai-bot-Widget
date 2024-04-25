@@ -33,7 +33,7 @@ export const SocketContextProvider = ({ children }) => {
       ts: new Date(),
       sender: "BOT",
     };
-    welcomeMessage && dispatch(addMessage(welcomeMsg));
+    dispatch(addMessage(welcomeMsg));
     socket.on("connect", async () => {
       console.log(socket.id, "socket connection established");
 
