@@ -8,6 +8,7 @@ const AppContext = createContext({
   welcomeMessage: "",
   initialPayload: "",
   metadata: {},
+  server_endpoint: "",
   channel_id: "",
   position: "",
   account_id: "",

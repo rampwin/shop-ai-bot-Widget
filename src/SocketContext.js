@@ -12,7 +12,7 @@ export const SocketContext = createContext();
 
 export const SocketContextProvider = ({ children }) => {
   const appContext = useContext(AppContext);
-  const { channel_id, welcomeMessage } = appContext;
+  const { channel_id, welcomeMessage, server_endpoint } = appContext;
   const [socket, setSocket] = useState(null);
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export const SocketContextProvider = ({ children }) => {
     let sessionId = localStorage.getItem("sessionId") || String(Date.now());
     localStorage.setItem("sessionId", sessionId);
 
-    const socket = io.connect("http://localhost:4123/", {
+    const socket = io.connect(server_endpoint, {
       query: {
         sessionId: `${sessionId}`,
         channel_id: channel_id,
