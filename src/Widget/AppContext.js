@@ -11,7 +11,7 @@ const AppContext = createContext({
   server_endpoint: "",
   channel_id: "",
   position: "",
-  account_id: "",
+  account_id: null,
   botAvatar: "",
   widgetColor: "",
   botTitle: "",

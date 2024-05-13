@@ -19,14 +19,15 @@
     !(function () {
       let e = document.createElement("script"),
         t = document.head || document.getElementsByTagName("head")[0];
-      (e.src = "https://qa2-app.rampwin.com/web-widget.js"),
+      (e.src = "http://localhost:3001/web-widget.js"),
         (e.async = !0),
         (e.onload = () => {
           let widget = new WebWidget({
-            channel_id: "6639ebf19aa76e00134af7da",
+            channel_id: "6639fda76e3afb0cc0971a0b",
+            account_id: "615bfc72ba2a106ddcd46a2f",
             build_url:
               "https://harshvardhan82.github.io/Harshvardhan82/index.js",
-            base_url: "https://qa2-api.rampwin.com",
+            base_url: "http://localhost:4123",
           });
           widget.render();
         });

@@ -47,7 +47,6 @@ export const SocketContextProvider = ({ children }) => {
         dispatch(addMessage(botMessage));
       });
       socket.on("bot_typing", (eventJson) => {
-        console.log("status changed");
         dispatch(toggleBotTyping(eventJson.status));
       });
     });
