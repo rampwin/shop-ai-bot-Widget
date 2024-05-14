@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { createUserMessage } from "../../../utils/helpers";
 import AppContext from "../../AppContext";
-import { addMessage, toggleUserTyping } from "../Messages/messageSlice";
+import { addMessage } from "../Messages/messageSlice";
 import { SocketContext } from "../../../SocketContext";
 
 const Textarea = styled.textarea`
@@ -22,21 +22,11 @@ export const Keypad = () => {
   const userTypingPlaceholder = useSelector(
     (state) => state.messageState.userTypingPlaceholder
   );
-
   const socket = useContext(SocketContext).socket;
   const user = useContext(SocketContext).user;
 
   const userTyping = useSelector((state) => state.messageState.userTyping);
-  const {
-    shopGptServerUrl,
-    sessionId,
-    shopId,
-    account_id,
-    token,
-    welcomeMessage,
-    channel_id,
-    textColor,
-  } = appContext;
+  const { account_id, channel_id } = appContext;
 
   const handleSubmit = async () => {
     const timestamp = new Date();
@@ -69,7 +59,7 @@ export const Keypad = () => {
   return (
     <div className="mt-auto flex  h-[12%] items-center   rounded-b-[2rem] rounded-t-3xl  bg-slate-50">
       <Textarea
-        rows="1"
+        rows={1}
         className={` mx-4 block w-full resize-none bg-slate-50 p-2.5 text-sm text-gray-900 outline-none ${
           userTyping ? "cursor-default" : "cursor-not-allowed"
         }`}
@@ -79,7 +69,19 @@ export const Keypad = () => {
           setUserInput(e.target.value);
         }}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" && e.shiftKey) {
+            e.preventDefault();
+            const start = e.target.selectionStart;
+            const end = e.target.selectionEnd;
+            const newValue =
+              e.target.value.substring(0, start) +
+              "\n" +
+              e.target.value.substring(end);
+            setUserInput(newValue);
+            setTimeout(() => {
+              e.target.setSelectionRange(start + 1, start + 1);
+            });
+          } else if (e.key === "Enter") {
             e.preventDefault();
             handleSubmit();
           }
