@@ -14,10 +14,21 @@ export const SocketContextProvider = ({ children }) => {
   const appContext = useContext(AppContext);
   const { channel_id, welcomeMessage, server_endpoint } = appContext;
   const [socket, setSocket] = useState(null);
-  const [user, setUser] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
-    let sessionId = localStorage.getItem("sessionId") || String(Date.now());
+    let sessionId;
+    let welcomeMsg;
+    if (localStorage.getItem("sessionId")) {
+      sessionId = localStorage.getItem("sessionId");
+    } else {
+      sessionId = String(Date.now());
+      welcomeMsg = {
+        type: "text",
+        text: welcomeMessage,
+        ts: new Date(),
+        sender: "BOT",
+      };
+    }
     localStorage.setItem("sessionId", sessionId);
 
     const socket = io.connect(server_endpoint, {
@@ -27,24 +38,21 @@ export const SocketContextProvider = ({ children }) => {
       },
       transports: ["websocket"],
     });
-    const welcomeMsg = {
-      type: "text",
-      text: welcomeMessage,
-      ts: new Date(),
-      sender: "BOT",
-    };
-    welcomeMessage && dispatch(addMessage(welcomeMsg));
+
+    welcomeMessage && welcomeMsg && dispatch(addMessage(welcomeMsg));
     socket.on("connect", async () => {
       console.log(socket.id, "socket connection established");
 
       socket.on("bot_message", (eventJson) => {
-        const botMessage = {
-          type: eventJson.type,
-          [eventJson.type]: eventJson.message,
-          ts: eventJson.timeStamp,
-          sender: "BOT",
-        };
-        dispatch(addMessage(botMessage));
+        if (sessionId === eventJson.session_id) {
+          const botMessage = {
+            type: eventJson.type,
+            [eventJson.type]: eventJson.message,
+            ts: eventJson.timeStamp,
+            sender: "BOT",
+          };
+          dispatch(addMessage(botMessage));
+        }
       });
       socket.on("bot_typing", (eventJson) => {
         dispatch(toggleBotTyping(eventJson.status));
@@ -57,7 +65,7 @@ export const SocketContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, user }}>
+    <SocketContext.Provider value={{ socket }}>
       {children}
     </SocketContext.Provider>
   );
