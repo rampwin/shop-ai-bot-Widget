@@ -15,8 +15,9 @@ export const Launcher = () => {
       animate={{
         scale: [0, 1.1, 1],
       }}
+      id="widget_launcher"
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
-      className={`fixed ml-5 ${position}-5 bottom-5 inline-flex cursor-default items-center rounded-full p-1 text-center text-sm font-medium text-white xs:${position}-0`}
+      className={`fixed ${position}-5 bottom-5 inline-flex cursor-default items-center rounded-full p-1 text-center text-sm font-medium text-white xs:${position}-0`}
       style={{ backgroundColor: widgetColor, color: textColor }}
       onClick={(e) => {
         e.preventDefault();
