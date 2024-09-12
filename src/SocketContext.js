@@ -45,12 +45,30 @@ export const SocketContextProvider = ({ children }) => {
 
       socket.on("bot_message", (eventJson) => {
         if (sessionId === eventJson.session_id) {
-          const botMessage = {
-            type: eventJson.type,
-            [eventJson.type]: eventJson.message,
-            ts: eventJson.timeStamp,
-            sender: "BOT",
-          };
+          let botMessage;
+          switch (eventJson.type) {
+            case "text": {
+              botMessage = {
+                type: eventJson.type,
+                [eventJson.type]: eventJson.message,
+                ts: eventJson.timeStamp,
+                sender: "BOT",
+              };
+              break;
+            }
+            case "interactive": {
+              botMessage = {
+                type: eventJson.type,
+                [eventJson.type]: eventJson.message[eventJson.type],
+                callback: true,
+                ts: eventJson.timeStamp,
+                sender: "BOT",
+              };
+              break;
+            }
+            default: {
+            }
+          }
           dispatch(addMessage(botMessage));
         }
       });

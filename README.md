@@ -14,6 +14,7 @@
 
 - Text
 - Buttons
+- List
 - Images
 - Markdown
 - Bot Typing Indicator

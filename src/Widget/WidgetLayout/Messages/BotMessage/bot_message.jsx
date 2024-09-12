@@ -1,5 +1,6 @@
 import { Buttons } from "./Buttons";
 import { Image } from "./Image";
+import { List } from "./List";
 import { TextMessage } from "./TextMessage";
 
 export const BotMessage = ({
@@ -14,6 +15,41 @@ export const BotMessage = ({
   if (endsSequence) {
     showBotAvatar = true;
   }
+
+  const handleInteractive = (message) => {
+    switch (message.type) {
+      case "list": {
+        botResponse.push(
+          <List
+            action={message.action}
+            key={`${index}_buttons`}
+            showBotAvatar={showBotAvatar}
+            ts={messageItem.ts}
+            index={index}
+            callback={messageItem.callback}
+            body={messageItem.interactive.body}
+          />
+        );
+        break;
+      }
+      case "button": {
+        botResponse.push(
+          <Buttons
+            buttons={messageItem.interactive.action.buttons}
+            key={`${index}_buttons`}
+            showBotAvatar={showBotAvatar}
+            ts={messageItem.ts}
+            index={index}
+            callback={messageItem.callback}
+            body={messageItem.interactive.body}
+          />
+        );
+        break;
+      }
+      default:
+        break;
+    }
+  };
   if (messageItem.type === "text") {
     botResponse.push(
       <TextMessage
@@ -26,17 +62,8 @@ export const BotMessage = ({
       />
     );
   }
-  if (messageItem.type === "buttons") {
-    botResponse.push(
-      <Buttons
-        buttons={messageItem.buttons}
-        key={`${index}_buttons`}
-        showBotAvatar={showBotAvatar}
-        ts={messageItem.ts}
-        index={index}
-        callback={messageItem.callback}
-      />
-    );
+  if (messageItem.type === "interactive") {
+    handleInteractive(messageItem.interactive);
   }
 
   if (messageItem.type === "image") {
