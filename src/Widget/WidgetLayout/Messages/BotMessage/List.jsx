@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { MdFormatListBulleted } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -43,6 +43,19 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
     chatHeaderCss,
     botMsgBackgroundColor,
   } = appContext;
+  const popupRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowList(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setShowList]);
 
   const handleButtonClick = () => {
     if (selectedOption?.id) {
@@ -64,6 +77,7 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
       setShowList(false);
     }
   };
+
   return (
     <div className="flex space-x-1 ">
       <div className={`flex w-5 items-start`}>
@@ -100,6 +114,7 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
       </div>
       {showList && (
         <div
+          ref={popupRef}
           className="fixed top-0 left-0 rounded-2xl bg-white shadow-2xl"
           style={{
             transform: "translate(15%, 70%)",
@@ -108,7 +123,7 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
           }}
         >
           <div
-            className={`m-0 w-full rounded-t-2xl py-2 text-center`}
+            className="m-0 w-full rounded-t-2xl py-2 text-center"
             style={{
               color: chatHeaderCss.textColor,
               backgroundColor: chatHeaderCss.backgroundColor,
@@ -116,39 +131,40 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
           >
             <h4>{button}</h4>
           </div>
-          {sections.map((item) => {
-            return (
-              <div className={`m-auto my-2 w-[calc(90%)] px-2`}>
-                <div
-                  className={`w-full rounded-sm px-2 text-sm`}
-                  style={{
-                    color: botMsgColor,
-                    backgroundColor: botMsgBackgroundColor,
-                  }}
-                >
-                  {item.title}
-                </div>
-                {item.rows.map((eachOption) => (
-                  <div className="my-2 mx-4 flex w-[calc(90%)] rounded-sm p-1 text-left text-xs hover:bg-[#e7e7e7]">
-                    <input
-                      type="radio"
-                      id={`listItem-${eachOption.id}`}
-                      name="options"
-                      value={selectedOption}
-                      onClick={() => setSelectedOption(eachOption)}
-                      className="mr-2 self-center"
-                    />
-                    <label
-                      htmlFor={`listItem-${eachOption.id}`}
-                      className="w-full cursor-pointer"
-                    >
-                      {eachOption.title}
-                    </label>
-                  </div>
-                ))}
+          {sections.map((item) => (
+            <div key={item.title} className="m-auto my-2 w-[calc(90%)] px-2">
+              <div
+                className="w-full rounded-sm px-2 text-sm"
+                style={{
+                  color: botMsgColor,
+                  backgroundColor: botMsgBackgroundColor,
+                }}
+              >
+                {item.title}
               </div>
-            );
-          })}
+              {item.rows.map((eachOption) => (
+                <div
+                  key={eachOption.id}
+                  className="my-2 mx-4 flex w-[calc(90%)] rounded-sm p-1 text-left text-xs hover:bg-[#e7e7e7]"
+                >
+                  <input
+                    type="radio"
+                    id={`listItem-${eachOption.id}`}
+                    name="options"
+                    value={selectedOption}
+                    onClick={() => setSelectedOption(eachOption)}
+                    className="mr-2 self-center"
+                  />
+                  <label
+                    htmlFor={`listItem-${eachOption.id}`}
+                    className="w-full cursor-pointer"
+                  >
+                    {eachOption.title}
+                  </label>
+                </div>
+              ))}
+            </div>
+          ))}
           <div className="flex w-full justify-end space-x-2 p-2">
             <Button
               type="button"
