@@ -1,7 +1,7 @@
-import { Buttons } from "./Buttons";
-import { Image } from "./Image";
-import { List } from "./List";
-import { TextMessage } from "./TextMessage";
+import { Buttons } from "./messageComponents/Buttons";
+import { Image } from "./messageComponents/Image";
+import { List } from "./messageComponents/List";
+import { TextMessage } from "./messageComponents/TextMessage";
 
 export const BotMessage = ({
   messageItem,
@@ -35,12 +35,26 @@ export const BotMessage = ({
       case "button": {
         botResponse.push(
           <Buttons
-            buttons={messageItem.interactive.action.buttons}
+            action={messageItem.interactive.action}
             key={`${index}_buttons`}
             showBotAvatar={showBotAvatar}
             ts={messageItem.ts}
             index={index}
             callback={messageItem.callback}
+            body={messageItem.interactive.body}
+          />
+        );
+        break;
+      }
+      case "cta_url": {
+        botResponse.push(
+          <Buttons
+            action={messageItem.interactive.action}
+            key={`${index}_cta_url`}
+            showBotAvatar={showBotAvatar}
+            ts={messageItem.ts}
+            index={index}
+            callback={messageItem?.callback}
             body={messageItem.interactive.body}
           />
         );

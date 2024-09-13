@@ -2,11 +2,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { MdFormatListBulleted } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { SocketContext } from "../../../../SocketContext";
-import { createUserMessage } from "../../../../utils/helpers";
-import AppContext from "../../../AppContext";
-import { addMessage } from "../messageSlice";
-import { formattedTs, MardownText } from "../utils";
+import { IoMdClose } from "react-icons/io";
+import { SocketContext } from "./../../../../../SocketContext";
+import { createUserMessage } from "../../../../../utils/helpers";
+import AppContext from "./../../../../AppContext";
+import { addMessage } from "./../../messageSlice";
+import { formattedTs, MardownText } from "./../../utils";
 
 export const Button = styled.button`
   border-radius: ${(props) => props.borderRadius};
@@ -89,7 +90,7 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
       </div>
       <div className="flex flex-col space-y-1">
         <div
-          className={`flex w-max flex-col space-y-4 whitespace-pre-line break-words  rounded-[20px] px-[15px] py-[10px] text-sm`}
+          className={`flex w-max flex-col space-y-4 whitespace-pre-line break-words rounded-[20px]  px-[15px] py-[10px] text-center text-sm`}
           style={{
             color: botMsgColor,
             backgroundColor: botMsgBackgroundColor,
@@ -123,13 +124,20 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
           }}
         >
           <div
-            className="m-0 w-full rounded-t-2xl py-2 text-center"
+            className="m-0 flex w-full  rounded-t-2xl py-2 text-center"
             style={{
               color: chatHeaderCss.textColor,
               backgroundColor: chatHeaderCss.backgroundColor,
             }}
           >
-            <h4>{button}</h4>
+            <div className="m-auto pl-6">
+              <h4>{button}</h4>
+            </div>
+            <div className="mr-4 flex justify-center">
+              <button enableHover={true} onClick={() => setShowList(false)}>
+                <IoMdClose />
+              </button>
+            </div>
           </div>
           {sections.map((item) => (
             <div key={item.title} className="m-auto my-2 w-[calc(90%)] px-2">
@@ -166,16 +174,6 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
             </div>
           ))}
           <div className="flex w-full justify-end space-x-2 p-2">
-            <Button
-              type="button"
-              className="rounded-lg border-2 border-solid px-3 py-1.5 text-center text-sm font-medium shadow-lg hover:bg-gray-300"
-              enableHover={true}
-              color={botMsgColor}
-              backgroundColor={botMsgBackgroundColor}
-              onClick={() => setShowList(false)}
-            >
-              Close
-            </Button>
             <Button
               type="button"
               className="rounded-lg border-2 border-solid px-3 py-1.5 text-center text-sm font-medium shadow-lg hover:bg-gray-300 hover:text-black"

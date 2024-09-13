@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import AppContext from "../../../AppContext";
-import { formattedTs, MardownText } from "../utils";
+import AppContext from "../../../../AppContext";
+import { formattedTs, MardownText } from "../../utils";
 
 export const TextMessage = ({
   text,

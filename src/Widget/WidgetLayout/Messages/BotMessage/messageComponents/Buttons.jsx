@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { createUserMessage } from "../../../../utils/helpers";
-import AppContext from "../../../AppContext";
-import { SocketContext } from "../../../../SocketContext";
-import { addMessage, disableButtons } from "../messageSlice";
-import { formattedTs, MardownText } from "../utils";
+import { createUserMessage } from "./../../../../../utils/helpers";
+import AppContext from "./../../../../AppContext";
+import { SocketContext } from "./../../../../../SocketContext";
+import { addMessage, disableButtons } from "./../../messageSlice";
+import { formattedTs, MardownText } from "./../../utils";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
 export const Button = styled.button`
   border-radius: ${(props) => props.borderRadius};
@@ -26,7 +27,7 @@ export const Button = styled.button`
 `;
 
 export const Buttons = ({
-  buttons,
+  action,
   index,
   showBotAvatar,
   ts,
@@ -35,6 +36,8 @@ export const Buttons = ({
 }) => {
   const socket = useContext(SocketContext).socket;
   const dispatch = useDispatch();
+  const { buttons, parameters } = action;
+
   const appContext = useContext(AppContext);
   const {
     botAvatar,
@@ -74,7 +77,7 @@ export const Buttons = ({
       </div>
       <div className="flex max-w-[calc(75%)] flex-col space-y-1">
         <div
-          className={`w-max whitespace-pre-line break-words rounded-[20px]  px-[15px] py-[12px] text-sm`}
+          className={`w-max whitespace-pre-line break-words rounded-[20px] px-[15px]  py-[12px] text-center text-sm`}
           style={{
             color: botMsgColor,
             backgroundColor: botMsgBackgroundColor,
@@ -83,16 +86,29 @@ export const Buttons = ({
           dir="auto"
         >
           <MardownText text={body.text} />
+
+          {parameters && (
+            <Button
+              type="button"
+              className="mt-2 flex w-fit flex-row items-center justify-center gap-2 rounded-md px-1 py-1 text-center text-sm  font-medium hover:bg-gray-200"
+              enableHover={true}
+              onClick={() => window.open(parameters?.url, "_blank")}
+              color={botMsgColor}
+            >
+              {parameters.display_text}
+              <FaArrowUpRightFromSquare className="self" />
+            </Button>
+          )}
         </div>
         <div
           className={`mt-2 flex w-max max-w-[calc(100%)] flex-wrap gap-2 self-start whitespace-pre-line  break-words text-sm`}
         >
-          {buttons.map((item, idx) => (
+          {buttons?.map((item, idx) => (
             <Button
               type="button"
               key={idx}
               disabled={!callback}
-              className={`rounded-md border-2 border-solid px-2 py-1.5 text-center text-sm font-medium shadow-md ${
+              className={`py- w-fit.5 rounded-md border-2 border-solid px-2 text-center text-sm font-medium shadow-xl ${
                 callback ? " hover:bg-gray-200" : "bg-gray-200"
               }`}
               enableHover={true}

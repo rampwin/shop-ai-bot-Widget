@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useSelector } from "react-redux";
-import AppContext from "../../../AppContext";
+import AppContext from "../../../../AppContext";
 
 export const BotTyping = () => {
   const theme = useContext(AppContext);

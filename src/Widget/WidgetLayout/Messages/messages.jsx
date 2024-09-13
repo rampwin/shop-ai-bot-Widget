@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useScrollBottom } from "../../../hooks/useScrollBottom";
 import AppContext from "../../AppContext";
-import { BotTyping } from "./BotMessage/BotTyping";
+import { BotTyping } from "./BotMessage/messageComponents/BotTyping";
 import { Chats } from "./Chats";
 import {
   setUserGreeted,
