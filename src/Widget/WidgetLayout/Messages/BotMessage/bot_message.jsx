@@ -1,5 +1,5 @@
 import { Buttons } from "./messageComponents/Buttons";
-import { Image } from "./messageComponents/Image";
+import { Media } from "./messageComponents/Media";
 import { List } from "./messageComponents/List";
 import { TextMessage } from "./messageComponents/TextMessage";
 
@@ -9,6 +9,8 @@ export const BotMessage = ({
   endsSequence,
   index,
 }) => {
+  console.log(messageItem);
+
   const botResponse = [];
   let showBotAvatar = false;
 
@@ -80,11 +82,11 @@ export const BotMessage = ({
     handleInteractive(messageItem.interactive);
   }
 
-  if (messageItem.type === "image") {
+  if (messageItem.type === "file") {
     botResponse.push(
-      <Image
+      <Media
         showBotAvatar={showBotAvatar}
-        imageUrl={messageItem.src}
+        messageBody={messageItem.messageBody}
         ts={messageItem.ts}
         key={`${index}image`}
       />

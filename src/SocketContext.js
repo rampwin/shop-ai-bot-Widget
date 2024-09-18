@@ -50,7 +50,7 @@ export const SocketContextProvider = ({ children }) => {
             case "text": {
               botMessage = {
                 type: eventJson.type,
-                [eventJson.type]: eventJson.message,
+                [eventJson.type]: eventJson.message.message,
                 ts: eventJson.timeStamp,
                 sender: "BOT",
               };
@@ -66,7 +66,17 @@ export const SocketContextProvider = ({ children }) => {
               };
               break;
             }
+            case "file": {
+              botMessage = {
+                type: eventJson.type,
+                messageBody: eventJson.message,
+                ts: eventJson.timeStamp,
+                sender: "BOT",
+              };
+              break;
+            }
             default: {
+              break;
             }
           }
           dispatch(addMessage(botMessage));
