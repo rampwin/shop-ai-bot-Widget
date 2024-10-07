@@ -81,6 +81,19 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
 
   return (
     <div className="flex space-x-1 ">
+      <style>{`
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #888;
+      height: 10px;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
+  `}</style>
       <div className={`flex w-5 items-start`}>
         <img
           className={`h-5 w-5  rounded-full ${showBotAvatar ? "" : "hidden"}`}
@@ -116,8 +129,9 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
       {showList && (
         <div
           ref={popupRef}
-          className="fixed top-0 left-0 rounded-2xl bg-white shadow-2xl"
+          className="no-scrollbar fixed top-0 left-0 overflow-auto rounded-2xl bg-white shadow-2xl"
           style={{
+            maxHeight: "50%",
             transform: "translate(15%, 70%)",
             width: "75%",
             zIndex: "9999",
@@ -139,51 +153,59 @@ export const List = ({ action, index, showBotAvatar, ts, body }) => {
               </button>
             </div>
           </div>
-          {sections.map((item) => (
-            <div key={item.title} className="m-auto my-2 w-[calc(90%)] px-2">
-              <div
-                className="w-full rounded-sm px-2 text-sm"
-                style={{
-                  color: botMsgColor,
-                  backgroundColor: botMsgBackgroundColor,
-                }}
-              >
-                {item.title}
-              </div>
-              {item.rows.map((eachOption) => (
+
+          <div
+            className="custom-scrollbar overflow-y-auto"
+            style={{
+              maxHeight: "250px",
+            }}
+          >
+            {sections.map((item) => (
+              <div key={item.title} className="m-auto my-2 w-[calc(90%)] px-2">
                 <div
-                  key={eachOption.id}
-                  className="my-2 mx-4 flex w-[calc(90%)] rounded-sm p-1 text-left text-xs hover:bg-[#e7e7e7]"
+                  className="w-full rounded-sm px-2 text-sm"
+                  style={{
+                    color: botMsgColor,
+                    backgroundColor: botMsgBackgroundColor,
+                  }}
                 >
-                  <input
-                    type="radio"
-                    id={`listItem-${eachOption.id}`}
-                    name="options"
-                    value={selectedOption}
-                    onClick={() => setSelectedOption(eachOption)}
-                    className="mr-2 self-center"
-                  />
-                  <label
-                    htmlFor={`listItem-${eachOption.id}`}
-                    className="w-full cursor-pointer"
-                  >
-                    {eachOption.title}
-                  </label>
+                  {item.title}
                 </div>
-              ))}
+                {item.rows.map((eachOption) => (
+                  <div
+                    key={eachOption.id}
+                    className="my-2 mx-4 flex w-[calc(90%)] rounded-sm p-1 text-left text-xs hover:bg-[#e7e7e7]"
+                  >
+                    <input
+                      type="radio"
+                      id={`listItem-${eachOption.id}`}
+                      name="options"
+                      value={selectedOption}
+                      onClick={() => setSelectedOption(eachOption)}
+                      className="mr-2 self-center"
+                    />
+                    <label
+                      htmlFor={`listItem-${eachOption.id}`}
+                      className="w-full cursor-pointer"
+                    >
+                      {eachOption.title}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            ))}
+            <div className="flex w-full justify-end space-x-2 p-2">
+              <Button
+                type="button"
+                className="rounded-lg border-2 border-solid px-3 py-1.5 text-center text-sm font-medium shadow-lg hover:bg-gray-300 hover:text-black"
+                color={chatHeaderCss.textColor}
+                enableHover={true}
+                backgroundColor={chatHeaderCss.backgroundColor}
+                onClick={() => handleButtonClick()}
+              >
+                Send
+              </Button>
             </div>
-          ))}
-          <div className="flex w-full justify-end space-x-2 p-2">
-            <Button
-              type="button"
-              className="rounded-lg border-2 border-solid px-3 py-1.5 text-center text-sm font-medium shadow-lg hover:bg-gray-300 hover:text-black"
-              color={chatHeaderCss.textColor}
-              enableHover={true}
-              backgroundColor={chatHeaderCss.backgroundColor}
-              onClick={() => handleButtonClick()}
-            >
-              Send
-            </Button>
           </div>
         </div>
       )}

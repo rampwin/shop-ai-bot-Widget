@@ -9,10 +9,9 @@ export const BotMessage = ({
   endsSequence,
   index,
 }) => {
-  console.log(messageItem);
-
   const botResponse = [];
   let showBotAvatar = false;
+  console.log(messageItem);
 
   if (endsSequence) {
     showBotAvatar = true;

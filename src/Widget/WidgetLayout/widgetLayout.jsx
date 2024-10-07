@@ -40,9 +40,8 @@ export const WidgetLayout = (props) => {
       {toggleWidget && (
         <motion.div
           id="widget_window"
-          className={`fixed bottom-5 ${
-            position === "rigth" ? "right-5" : ""
-          } z-50 flex flex-col rounded-[1.8rem] bg-white font-lato  ring-1 ring-black/5  sm:h-[calc(50%+200px)] sm:w-[calc(50%)] md:h-[calc(50%+100px)] md:w-[calc(50%)] lg:h-[calc(100%-100px)]  lg:w-[calc(25%)] xs:-mr-5 xs:h-[calc(100%-100px)] xs:w-full`}
+          className={`fixed bottom-5 z-50 flex flex-col rounded-[1.8rem] bg-white font-lato  ring-1 ring-black/5  sm:h-[calc(50%+200px)] sm:w-[calc(50%)] md:h-[calc(50%+100px)] md:w-[calc(50%)] lg:h-[calc(100%-100px)]  lg:w-[calc(25%)] xs:h-[calc(100%-100px)] xs:w-full`}
+          style={{ [position]: 5 }}
           animate={{ y: -60 }}
           exit={{ opacity: 0 }}
           transition={{ type: "spring", stiffness: 100 }}

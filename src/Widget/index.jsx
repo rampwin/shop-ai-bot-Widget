@@ -60,7 +60,7 @@ Widget.prototype = {
 Widget.defaultProps = {
   welcomeMessage: null,
   initialPayload: "/greet",
-  position: "left",
+  position: "right",
   widgetColor: "#8f001b",
   botAvatar:
     "https://1334637.fs1.hubspotusercontent-na1.net/hub/1334637/hubfs/logo.jpg",
@@ -68,7 +68,7 @@ Widget.defaultProps = {
   userMsgBackgroundColor: "#8f001b",
   botTitle: "Hi! I'm Ava",
   server_endpoint: "http://localhost:4000/",
-  channel_id: "66e437c24ee8a6e22f71772c",
+  channel_id: "66f124d1e5f31116d9b800e9",
   account_id: "615bfc72ba2a106ddcd46a2f",
   botSubTitle: "Sales & Services Assistant",
   botMsgBackgroundColor: "rgb(237,237,237)",

@@ -8,17 +8,37 @@ import { addMessage, disableButtons } from "./../../messageSlice";
 import { formattedTs, MardownText } from "./../../utils";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
+const invertColor = (hex) => {
+  if (hex?.startsWith("#")) {
+    hex = hex.slice(1);
+  }
+  // Parse hex color into RGB
+  const r = (255 - parseInt(hex?.slice(0, 2), 16))
+    .toString(16)
+    .padStart(2, "0");
+  const g = (255 - parseInt(hex?.slice(2, 4), 16))
+    .toString(16)
+    .padStart(2, "0");
+  const b = (255 - parseInt(hex?.slice(4, 6), 16))
+    .toString(16)
+    .padStart(2, "0");
+
+  return `#${r}${g}${b}`;
+};
+
 export const Button = styled.button`
   border-radius: ${(props) => props.borderRadius};
   border-width: ${(props) => props.borderWidth};
   border-color: ${(props) => props.borderColor};
   border-style: solid;
   background-color: ${(props) => props.backgroundColor};
-  color: ${(props) => props.color};
+  color: ${(props) =>
+    props.disabled ? invertColor(props.color) : props.color};
   &:hover {
     background-color: ${(props) =>
       props.enableHover ? props.hoverBackgroundColor : "none"};
-    color: ${(props) => (props.enableHover ? props.color : "none")};
+    color: ${(props) =>
+      props.enableHover ? invertColor(props.color) : "none"};
     border: ${(props) =>
       props.enableHover
         ? `${props.hoverborderWidth} solid ${props.borderColor}`
@@ -44,6 +64,7 @@ export const Buttons = ({
     channel_id,
     account_id,
     botMsgColor,
+    chatHeaderCss,
     botMsgBackgroundColor,
   } = appContext;
   const handleButtonClick = (item, index) => {
@@ -108,12 +129,15 @@ export const Buttons = ({
               type="button"
               key={idx}
               disabled={!callback}
-              className={`py- w-fit.5 rounded-md border-2 border-solid px-2 text-center text-sm font-medium shadow-xl ${
+              className={`w-fit.5 rounded-2xl border-2 border-solid px-2 py-1 text-center text-xs font-medium shadow-xl ${
                 callback ? " hover:bg-gray-200" : "bg-gray-200"
               }`}
               enableHover={true}
-              color={botMsgColor}
-              backgroundColor={botMsgBackgroundColor}
+              color={chatHeaderCss.textColor}
+              hoverBackgroundColor={botMsgBackgroundColor}
+              backgroundColor={
+                callback ? chatHeaderCss.backgroundColor : botMsgBackgroundColor
+              }
               onClick={async (e) => {
                 e.preventDefault();
                 handleButtonClick(item, index);
